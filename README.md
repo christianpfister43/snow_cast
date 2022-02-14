@@ -48,7 +48,6 @@ I am using a sequence length of 5, i.e. the network uses the past 5 weeks of gro
 
 These images are then used for training a CNN-type architecture:
 
-model summary
 
 
 It uses 3D convolutions, to adress spacial as well as temporal aspects of the data.
