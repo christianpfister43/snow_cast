@@ -27,14 +27,14 @@ The minimum required Python version for this repository to run is Python 3.6
 
 This repository uses Tensorflow 2.1.0, other 2.x versions will likely work too, but are not testet.
 
-Important: if you use the -gpu version of Tensorflow, you need a compatible CUDA Version (e.g. 10.1) and appropriate NVIDIA driver!
+Important: if you use the -gpu version of Tensorflow, you need a compatible CUDA Version (e.g. 10.1) and appropriate NVIDIA driver as well as a GPU with at least 8GB RAM (developed and testen on a NVIDIA RTX 2070 with 8GB RAM)
 
 Install required Python packages. 
 `pip install -r requirements.txt`
 
 If you have a fresh installation of Tensorflow 2.1.0, you need to do the following:
 
-in your environment (e.g. "snow-env" ) open this file: `snow-env\lib\site-packages\tensorflow_core\python\keras\saving\hdf5_format.py` and remove all `.decode('utf-8')` and `.decode('utf8')` tp prevent errors.
+in your environment (e.g. "snow-env" ) open this file: `snow-env\lib\site-packages\tensorflow_core\python\keras\saving\hdf5_format.py` and remove all `.decode('utf-8')` and `.decode('utf8')` to prevent errors.
 
 Make sure the following data files are in these folders:
 `./data/dev`: `grid_cells.geojson`, `ground_measures_metadata.csv`, `ground_measures_test_features.csv`, `ground_measures_train_features`, `submission_format.csv`, `train_labels.csv`;
@@ -62,7 +62,7 @@ It uses 3D convolutions, to adress spacial as well as temporal aspects of the da
 Copy the most recent! version of `ground_measures_features.csv` in the folder `./data/eval/`. make sure it contains all data (columns) up to the point that you want to predict. The week to predict needs to be the first column with ONLY NANs!
 then run `python inference.py` or `python3 inference.py` (depending on your installation).
 
-This will update the prediction set: `/data/eval/eval/prediction_snow_cast.csv` with the predictions for the new week.
+This will update the prediction set: `./data/eval/eval/prediction_snow_cast.csv` with the predictions for the new week.
 
 ## Usage Training
 If you want to retrain the model(s):
@@ -71,13 +71,13 @@ Run `prepare_training_data.py` once with the `_region` variable set to "sierras"
 Run `python train_model.py` once with the `_region` variable set to "sierras" and once set to "central rockies"The models will be saved to `./models` with a clear name for the respective region.
 
 ## Provided Data:
-Make sure to follow the instructins under "Prerequesites" to place the provided data files in the respective folders
+Make sure to follow the instructions under "Prerequesites" to place the provided data files in the respective folders
 
 A copy of this repositrory will be hosted on my  [Goodgle Drive](https://drive.google.com/drive/folders/19SeDjPlYD4t7BQqFc8DIS33DstWUUCyj?usp=sharing)
 
 The meta data files as well as pre-trained models are provided in this link in seperate sub-folders
 
-There is a sub folder "meta_data" which needs to be placed in the folder `./data` 
+There is a sub folder "meta_data", the contents of that need to be placed in the folder `./data` 
 
-Another subfolder "models" contains the pre-trained models for the regions "sierras" and "central rockies", these need to placed in the folder `./models`
+Another subfolder "models" contains the pre-trained models for the regions "sierras" and "central rockies", these `.hdf5` files need to placed in the folder `./models`
 
