@@ -36,6 +36,12 @@ If you have a fresh installation of Tensorflow 2.1.0, you need to do the followi
 
 in your environment (e.g. "snow-env" ) open this file: `snow-env\lib\site-packages\tensorflow_core\python\keras\saving\hdf5_format.py` and remove all `.decode('utf-8')` and `.decode('utf8')` tp prevent errors.
 
+Make sure the following data files are in these folders:
+`./data/dev`: `grid_cells.geojson`, `ground_measures_metadata.csv`, `ground_measures_test_features.csv`, `ground_measures_train_features`, `submission_format.csv`, `train_labels.csv`;
+
+`./data/eval`:  `grid_cells.geojson`, `ground_measures_features.csv`, `ground_measures_metadata.csv`, `labels_2020_2021.csv`, `submission_format.csv`;
+
+`./data/eval/eval`: `prediction_snow_cast.csv`(the initial prediction file)
 
 ## General Idea of my Aproach
 I created a Grid of 600 x 600 for the sub-reagions "sierras" and "central rockies". Their min and max are automatically determined by the GPS locations of the Grid cells with the labels of the respective region.
@@ -46,10 +52,7 @@ For each week in the training data, there is a picture (600x600 pixel) created w
 
 I am using a sequence length of 5, i.e. the network uses the past 5 weeks of ground measurement data to predict 1 week ahead.
 
-These images are then used for training a CNN-type architecture:
-
-model summary
-
+These images are then used for training a CNN-type architecture which can be seen in the modelsummary.txt
 
 It uses 3D convolutions, to adress spacial as well as temporal aspects of the data.
 
@@ -64,8 +67,17 @@ This will update the prediction set: `/data/eval/eval/prediction_snow_cast.csv` 
 ## Usage Training
 If you want to retrain the model(s):
 
-Run `python train_model.py` . this will check for training data (and generate if needed), and then train models for the regions "sierras" and "central rockies". The models will be saved to `./models` with a clear name for the respective region.
+Run `prepare_training_data.py` once with the `_region` variable set to "sierras" and once set to "central rockies" to generate all training data
+Run `python train_model.py` once with the `_region` variable set to "sierras" and once set to "central rockies"The models will be saved to `./models` with a clear name for the respective region.
 
+## Provided Data:
+Make sure to follow the instructins under "Prerequesites" to place the provided data files in the respective folders
 
+A copy of this repositrory will be hosted on my  [Goodgle Drive](https://drive.google.com/drive/folders/19SeDjPlYD4t7BQqFc8DIS33DstWUUCyj?usp=sharing)
 
+The meta data files as well as pre-trained models are provided in this link in seperate sub-folders
+
+There is a sub folder "meta_data" which needs to be placed in the folder `./data` 
+
+Another subfolder "models" contains the pre-trained models for the regions "sierras" and "central rockies", these need to placed in the folder `./models`
 
