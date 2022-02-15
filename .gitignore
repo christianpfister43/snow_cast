@@ -1,0 +1,6 @@
+*.hdf5
+*.pyc
+*.pickle
+*.png
+*.geojson
+__pycache__
